@@ -8,8 +8,8 @@
     
     <title>NVec reference &mdash; mMath 1.0.0 documentation</title>
     
-    <link rel="stylesheet" href="default.css" type="text/css" />
-    <link rel="stylesheet" href="pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="underscore.js"></script>
-    <script type="text/javascript" src="doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="mMath 1.0.0 documentation" href="../index.html" />
     <link rel="up" title="CLASSES REFERENCE" href="classes_reference.html" />
     <link rel="prev" title="NScalar reference" href="NScalar_doc.html" /> 
@@ -58,130 +58,6 @@ scale attribute or color attributes, just need to be a compound three attribute.
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">nVec.NBaseVec</span></tt></p>
 <p>This class lets easily perform vector operation as node based 
 maya operation</p>
-<dl class="method">
-<dt id="nVec.NVec.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>attribute_name</em>, <em>base_name='Vector'</em><big>)</big><a class="headerlink" href="#nVec.NVec.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the constructor</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Attribute_name:</th><td class="field-body">str, the name of the attribute that will be used as         vector source</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Base_name:</th><td class="field-body">the base name used for the generated nodes</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__len__">
-<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="headerlink" href="#nVec.NVec.__len__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Length operator for the nVec class</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__sub__">
-<tt class="descname">__sub__</tt><big>(</big><em>vecB</em><big>)</big><a class="headerlink" href="#nVec.NVec.__sub__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subtraction operator for NVec</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__xor__">
-<tt class="descname">__xor__</tt><big>(</big><em>vecB</em><big>)</big><a class="headerlink" href="#nVec.NVec.__xor__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cross product operator</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__add__">
-<tt class="descname">__add__</tt><big>(</big><em>vecB</em><big>)</big><a class="headerlink" href="#nVec.NVec.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><p>addition operator for NVec class</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__neg__">
-<tt class="descname">__neg__</tt><big>(</big><big>)</big><a class="headerlink" href="#nVec.NVec.__neg__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Negation operator for the NVec class</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__mul__">
-<tt class="descname">__mul__</tt><big>(</big><em>vecB</em><big>)</big><a class="headerlink" href="#nVec.NVec.__mul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>multiplication operator for NVec class</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="nVec.NVec.__rmul__">
-<tt class="descname">__rmul__</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#nVec.NVec.__rmul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Right multiplication operator for NVec class</p>
-<p>This function gets called in the case we get a float,int multiplied
-by a NVec instance and it performs a static_scalar operation</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Value:</th><td class="field-body">float,int, the value to scale the vector by</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="method">
 <dt>
 <tt class="descname">as_list</tt><big>(</big><big>)</big></dt>
@@ -381,6 +257,130 @@ vector source</td>
 
 </dd></dl>
 
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__init__</tt><big>(</big><em>attribute_name</em>, <em>base_name='Vector'</em><big>)</big></dt>
+<dd><p>This is the constructor</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attribute_name:</th><td class="field-body">str, the name of the attribute that will be used as         vector source</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Base_name:</th><td class="field-body">the base name used for the generated nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__len__</tt><big>(</big><big>)</big></dt>
+<dd><p>Length operator for the nVec class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__sub__</tt><big>(</big><em>vecB</em><big>)</big></dt>
+<dd><p>Subtraction operator for NVec</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__xor__</tt><big>(</big><em>vecB</em><big>)</big></dt>
+<dd><p>Cross product operator</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__add__</tt><big>(</big><em>vecB</em><big>)</big></dt>
+<dd><p>addition operator for NVec class</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__neg__</tt><big>(</big><big>)</big></dt>
+<dd><p>Negation operator for the NVec class</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__mul__</tt><big>(</big><em>vecB</em><big>)</big></dt>
+<dd><p>multiplication operator for NVec class</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">VecB:</th><td class="field-body">NVec, the second class for the operation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NVec.</tt><tt class="descname">__rmul__</tt><big>(</big><em>value</em><big>)</big></dt>
+<dd><p>Right multiplication operator for NVec class</p>
+<p>This function gets called in the case we get a float,int multiplied
+by a NVec instance and it performs a static_scalar operation</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Value:</th><td class="field-body">float,int, the value to scale the vector by</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">NVec instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <span class="target" id="index-0"></span></div>
 
 
@@ -394,7 +394,7 @@ vector source</td>
                         title="previous chapter">NScalar reference</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/_static/NVec_doc.txt"
+    <li><a href="../_sources/docs/NVec_doc.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

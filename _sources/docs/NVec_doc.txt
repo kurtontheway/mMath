@@ -10,14 +10,22 @@ scale attribute or color attributes, just need to be a compound three attribute.
    :inherited-members:
    :show-inheritance:
 
-   .. automethod:: nVec.NVec.__init__
-   .. automethod:: nVec.NVec.__len__
-   .. automethod:: nVec.NVec.__sub__
-   .. automethod:: nVec.NVec.__xor__
-   .. automethod:: nVec.NVec.__add__
-   .. automethod:: nVec.NVec.__neg__
-   .. automethod:: nVec.NVec.__mul__
-   .. automethod:: nVec.NVec.__rmul__
+.. automethod:: nVec.NVec.__init__
+   :noindex:
+.. automethod:: nVec.NVec.__len__
+   :noindex:
+.. automethod:: nVec.NVec.__sub__
+   :noindex:
+.. automethod:: nVec.NVec.__xor__
+   :noindex:
+.. automethod:: nVec.NVec.__add__
+   :noindex:
+.. automethod:: nVec.NVec.__neg__
+   :noindex:
+.. automethod:: nVec.NVec.__mul__
+   :noindex:
+.. automethod:: nVec.NVec.__rmul__
+   :noindex:
 
 
 .. index:: nVec.NVec

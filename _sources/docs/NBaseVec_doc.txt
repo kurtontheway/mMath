@@ -10,7 +10,8 @@ to work properly
    :inherited-members:
    :show-inheritance:
 
-   .. automethod:: nVec.NBaseVec.__init__
+.. automethod:: nVec.NBaseVec.__init__
+  :noindex:
 
 
 .. index:: nVec.NBaseVec
