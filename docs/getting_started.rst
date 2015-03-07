@@ -140,6 +140,8 @@ Here is the snippet of code:
 
 .. code-block:: python
 
+   #declaring the chain array
+   chain =["joint1","joint2","joint3"]
    #declaring initial vectors
    startV = nVec.NVec("start_drv.worldPosition", "sStretch")
    endV = nVec.NVec("end_drv.worldPosition", "eStretch")
@@ -200,8 +202,9 @@ This is the result in the node editor
 
 Here a step by step video showing the process:
 
-VIDEO COMING SOON
+.. raw:: html
 
+   <iframe src="https://player.vimeo.com/video/121556271" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/121556271">Desktop 03.07.2015 - 18.55.48.04</a> from <a href="https://vimeo.com/marcogiordano91">Marco Giordano</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 DEMO 3: Lock-Stretchy IK
 ----------------------------
@@ -215,7 +218,8 @@ Here the code:
 .. code-block:: python
    
    #OLD CODE 
-
+   #declaring the chain array   
+   chain =["joint1","joint2","joint3"]
    #declaring initial vectors
    startV = nVec.NVec("start_drv.worldPosition", "sStretch")
    endV = nVec.NVec("end_drv.worldPosition", "eStretch")
@@ -297,7 +301,10 @@ into the existing flow
 
 As usual here a step by step video:
 
-VIDEO COMING SOON
+.. raw:: html
+
+   <iframe src="https://player.vimeo.com/video/121556792" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/121556792">mMath Lib: Demo3 - Lock-Stretchy IK</a> from <a href="https://vimeo.com/marcogiordano91">Marco Giordano</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
 
 
 
