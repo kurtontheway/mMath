@@ -27,11 +27,11 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   _static/getting_started
-   _static/staticdynamic
-   _static/consistency
-   _static/naming
-   _static/classes_reference
+   docs/getting_started
+   docs/staticdynamic
+   docs/consistency
+   docs/naming
+   docs/classes_reference
 
 
 
