@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Names generation &mdash; mMath 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="doctools.js"></script>
+    <link rel="top" title="mMath 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="CLASSES REFERENCE" href="classes_reference.html" />
+    <link rel="prev" title="Consistency in the operators" href="consistency.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="classes_reference.html" title="CLASSES REFERENCE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="consistency.html" title="Consistency in the operators"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">mMath 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="names-generation">
+<h1>Names generation<a class="headerlink" href="#names-generation" title="Permalink to this headline">¶</a></h1>
+<p>Naming is always a crucial part when it comes to rigging, the main problem is trying to
+avoid duplicate names, that can lead to several problems. Even thought here we are dealing with nodes and duplicate names are not going to be a massive problem is still
+something to take care of, the other problem is that generating manually a name for each
+node we crate it is quite painfull and it wont work with operator math, I have no way
+to passing a name if I am doing something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">vec1</span> <span class="o">+</span> <span class="n">vec2</span>
+</pre></div>
+</div>
+<p>That name need to be generated in a different way, the first solution would be something on the line</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">vec1</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vec2</span><span class="p">,</span> <span class="s">&quot;myName&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Which is not as neat and clean as the __add__ operator, the actual idea came from a friend
+of mine Leandro Pedroni, he told me to use generators, that idea worked just great.
+Let me explain you really quick.
+When you instanciate a N-Class like it can be an NVec, you need to pass a base_name argument.</p>
+<p>That argument will be used to initialize a generators that will yield each time a new name.
+Lets have a look at the actual code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">_generator</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_name</span> <span class="o">+</span> <span class="s">&quot;</span><span class="si">%03d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9999</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here we created a generator that will result in a series of names padded three, if we pass
+&#8220;test&#8221; as a base name the generator will yield test001, test002 etc.
+Then each operator is in charge of adding a suffix to the name based on the operation,
+for example : &#8220;test002_sub&#8221;.
+Now the next problem that aries is how do you keep generators synced ? We could go down
+the road of having a new generator for each node but you have to input a unique base name
+each time which can be trouble some, what I decided to do is to pass down the generator
+from class to class. Here an example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">vec1</span> <span class="o">=</span> <span class="n">NVec</span><span class="p">(</span><span class="s">&quot;loc.tx&quot;</span><span class="p">,</span> <span class="s">&quot;aimVec&quot;</span><span class="p">)</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">NVec</span><span class="p">(</span><span class="s">&quot;loc2.ty&quot;</span><span class="p">,</span> <span class="s">&quot;upVec&quot;</span><span class="p">)</span>
+
+<span class="n">cross</span> <span class="o">=</span> <span class="n">vec1</span><span class="o">^</span><span class="n">vec2</span>
+</pre></div>
+</div>
+<p>In the above example we initialize two vectors and we take a cross product, what is
+happening under the hood is that internally the vec1.cross() method is called,
+this method is in charge of computing the vector and returnign a new vector class
+holding the result, the new instance is created with an alternative constructor which allows a generator to be passed so wont have to be created</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">return</span> <span class="n">NVec</span><span class="o">.</span><span class="n">with_generator</span><span class="p">(</span><span class="n">vecProd</span><span class="o">+</span> <span class="s">&#39;.output&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generator</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this way the generator is passed from class to class and will be consumed the more
+node we create, I like this approach a lot because it helps visualize the stream of operation, if we see &#8220;aimVec&#8221; in the name we know that the opration is coming from the
+steam of vec1 etc.</p>
+<p>If you don&#8217;t like the actual default generators the user can crate it&#8217;s own custom generator and pass it down to the classes and have their customized namings.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="consistency.html"
+                        title="previous chapter">Consistency in the operators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="classes_reference.html"
+                        title="next chapter">CLASSES REFERENCE</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_static/naming.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="classes_reference.html" title="CLASSES REFERENCE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="consistency.html" title="Consistency in the operators"
+             >previous</a> |</li>
+        <li><a href="../index.html">mMath 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Marco Giordano.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Consistency in the operators &mdash; mMath 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="doctools.js"></script>
+    <link rel="top" title="mMath 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Names generation" href="naming.html" />
+    <link rel="prev" title="Static VS Dynamic opeation" href="staticdynamic.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="naming.html" title="Names generation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="staticdynamic.html" title="Static VS Dynamic opeation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">mMath 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="consistency-in-the-operators">
+<h1>Consistency in the operators<a class="headerlink" href="#consistency-in-the-operators" title="Permalink to this headline">¶</a></h1>
+<p>In order to speed up the process and shirnk down the needed amount of code several operators have been implemented in the N-classes.
+I tried to be as consistant as possible in the operations and also trying to keep them
+as intuitive as possible, and still reflect the same operation in the pure math library.
+The main thing to remember is that usually scaling avector by a static value is implemented by right multiplication operator (__rmul__) in both pure math Vec, NScalar
+and NVec.
+Here some example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#math vector scalar</span>
+<span class="n">mathV</span> <span class="o">=</span> <span class="n">Vec</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">Vec</span>
+
+<span class="c">#Using NScalar</span>
+<span class="n">nSc</span> <span class="o">=</span> <span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;loc.ty&quot;</span><span class="p">)</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">nSc</span>
+
+<span class="c">#Using NVec</span>
+<span class="n">nV</span> <span class="o">=</span> <span class="n">NVec</span><span class="p">(</span><span class="s">&quot;loc.t&quot;</span><span class="p">)</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">nV</span>
+</pre></div>
+</div>
+<p>As you can see all this operation are consistant bewteen each other, I reserved the regular left multiplication (__mul__ operator), for operation that made sense between
+classes.
+The __mul__ operator in the vectors has been reseved for the dotProduct/innerProduct
+operation, since it is the same in many math library (also in OpenMaya), in the NScalar
+class this operation has been reserved for multiplication to another NScalar, which in the end it gets translated in a dynamic_scalar operation (If you think about that, it s a dot product on its own of two size 1 vectors).
+In the vectors the NScalar operation needs to be called manually as a function.</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#math vector dot</span>
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">Vec</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">Vec</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">vec1</span> <span class="o">*</span> <span class="n">vec2</span>
+
+<span class="c">#Dot with NVecs</span>
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">NVec</span><span class="p">(</span><span class="s">&quot;loc1.t&quot;</span><span class="p">)</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">NVec</span><span class="p">(</span><span class="n">loc2</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">vec1</span> <span class="o">*</span> <span class="n">vec2</span>
+
+<span class="c">#NScalar mult</span>
+<span class="n">scal1</span> <span class="o">=</span> <span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;loc1.ty&quot;</span><span class="p">)</span>
+<span class="n">scal2</span> <span class="o">=</span> <span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;loc2.ty&quot;</span><span class="p">)</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">scal1</span> <span class="o">*</span> <span class="n">scal2</span>
+
+
+<span class="c">#here we perform some dynamic scalar operation</span>
+<span class="c">#the dynamic operation in pure math library doesn&#39;t make</span>
+<span class="c">#any sense, since every value is static at the time of the operation</span>
+<span class="c">#the dynamic-static concept is marely a concept in the Node side of the library</span>
+
+<span class="c">#Dynamic scalar with NVec</span>
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">NVec</span><span class="p">(</span><span class="s">&quot;loc1.t&quot;</span><span class="p">)</span>
+<span class="n">scal1</span> <span class="o">=</span> <span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;loc1.ty&quot;</span><span class="p">)</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="n">NVec</span><span class="o">.</span><span class="n">scalar_dynamic</span><span class="p">(</span><span class="n">scal1</span><span class="p">)</span>
+
+<span class="c">#the same operation can be called manually between NScalars</span>
+<span class="n">scal1</span> <span class="o">=</span> <span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;loc1.ty&quot;</span><span class="p">)</span>
+<span class="n">scal2</span> <span class="o">=</span> <span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;loc2.ty&quot;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">scal1</span><span class="o">.</span><span class="n">scalar_dynamic</span><span class="p">(</span><span class="n">scal2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="staticdynamic.html"
+                        title="previous chapter">Static VS Dynamic opeation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="naming.html"
+                        title="next chapter">Names generation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_static/consistency.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="naming.html" title="Names generation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="staticdynamic.html" title="Static VS Dynamic opeation"
+             >previous</a> |</li>
+        <li><a href="../index.html">mMath 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Marco Giordano.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

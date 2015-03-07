@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &mdash; mMath 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="doctools.js"></script>
+    <link rel="top" title="mMath 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Static VS Dynamic opeation" href="staticdynamic.html" />
+    <link rel="prev" title="Welcome to mMath’s documentation!" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="staticdynamic.html" title="Static VS Dynamic opeation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to mMath’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">mMath 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Hi this is a series of demos and tutorials to get up and running with the
+mMath library.</p>
+<div class="section" id="demo-1-perpendicular-vector">
+<h2>DEMO 1: Perpendicular vector<a class="headerlink" href="#demo-1-perpendicular-vector" title="Permalink to this headline">¶</a></h2>
+<p>One of the things that happens often is to be able to find a vector that is perpendicular
+to two other vectors which constrianis the movevent, it might be the perperdincular
+vector to a normal of a surface and an aim, usually that will be used to build a final
+matrix.
+In this example I will show you a snippet of code to achieve that result</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#Here we inizalize three vectors and a scalar</span>
+<span class="n">vecBase</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;loc_base.worldPosition&quot;</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">vecA</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;locA_tip.worldPosition&quot;</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">vecB</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;locB_tip.worldPosition&quot;</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">scalV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;scalar_loc.ty&quot;</span><span class="p">,</span><span class="s">&quot;scal&quot;</span><span class="p">)</span>
+
+<span class="c">#here we extract two vectors( baseToA and baseToB)</span>
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">vecA</span> <span class="o">-</span> <span class="n">vecBase</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">vecB</span> <span class="o">-</span> <span class="n">vecBase</span>
+
+<span class="c">#we compute the cross product</span>
+<span class="n">cross</span> <span class="o">=</span> <span class="n">vec1</span> <span class="o">^</span> <span class="n">vec2</span>
+<span class="c">#normalizing the result</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">cross</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<span class="c">#summing the scaled perpendicular vector to the base</span>
+<span class="n">final</span> <span class="o">=</span> <span class="n">vecBase</span> <span class="o">+</span> <span class="n">norm</span><span class="o">.</span><span class="n">scalar_dynamic</span><span class="p">(</span><span class="n">scalV</span><span class="p">)</span>
+<span class="c">#connectiong to a locator to show the result</span>
+<span class="n">final</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="s">&quot;target_loc.t&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is the result in the node editor</p>
+<img alt="../_images/demo1.png" src="../_images/demo1.png" />
+<p>Many operators are implemented which allows to achieve complex inline operation like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">final</span> <span class="o">=</span> <span class="n">vecBase</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">norm</span><span class="p">)</span><span class="o">.</span><span class="n">scalar_dynamic</span><span class="p">(</span><span class="n">scalV</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this line there are many operation happening at once, the first one is the  negation
+of the vector, then the vector gets dynamically scaled, statically scaled and finally
+summed to the result, for more information on static vs dynamic scalar operation
+please refer to : <a class="reference internal" href="staticdynamic.html#static-dynamic"><em>Static vs scalar operation</em></a></p>
+<p>Now I will perform the same operation using the regular pure math side of the library and
+you will see the code is fairly similar:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">locBaseL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;loc_base.worldPosition&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">locAL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;locA_tip.worldPosition&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">locBL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;locB_tip.worldPosition&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">scalV</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;scalar_loc.ty&quot;</span><span class="p">)</span>
+<span class="n">vecBase</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">Vec</span><span class="p">(</span><span class="n">locBaseL</span><span class="p">)</span>
+<span class="n">vecA</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">Vec</span><span class="p">(</span><span class="n">locAL</span><span class="p">)</span>
+<span class="n">vecB</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">Vec</span><span class="p">(</span><span class="n">locBL</span><span class="p">)</span>
+
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">vecA</span> <span class="o">-</span> <span class="n">vecBase</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">vecB</span> <span class="o">-</span> <span class="n">vecBase</span>
+
+<span class="n">cross</span> <span class="o">=</span> <span class="n">vec1</span> <span class="o">^</span> <span class="n">vec2</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">cross</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<span class="n">final</span> <span class="o">=</span> <span class="n">vecBase</span> <span class="o">+</span> <span class="p">(</span><span class="n">scalV</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">norm</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>As you can see only the initialization of the vectors itself is different, all the rest
+is the same, the only missing bits is the scalar_dynamic call which doesn&#8217;t exists in the
+pure math implementation, the reason why is explained here : <a class="reference internal" href="staticdynamic.html#static-dynamic"><em>Static vs scalar operation</em></a></p>
+<p>Finally we can compare both codes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">locBase</span> <span class="o">=</span> <span class="s">&quot;loc_base.worldPosition&quot;</span>
+<span class="n">locA</span> <span class="o">=</span> <span class="s">&quot;locA_tip.worldPosition&quot;</span>
+<span class="n">locB</span> <span class="o">=</span> <span class="s">&quot;locB_tip.worldPosition&quot;</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s">&quot;target_loc.t&quot;</span>
+<span class="n">scalar</span> <span class="o">=</span> <span class="s">&quot;scalar_loc.ty&quot;</span>
+
+<span class="n">vecBase</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="n">locBase</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">vecA</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="n">locA</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">vecB</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="n">locB</span><span class="p">,</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">scalV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="n">scalar</span><span class="p">,</span><span class="s">&quot;scal&quot;</span><span class="p">)</span>
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">vecA</span> <span class="o">-</span> <span class="n">vecBase</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">vecB</span> <span class="o">-</span> <span class="n">vecBase</span>
+
+<span class="n">cross</span> <span class="o">=</span> <span class="n">vec1</span> <span class="o">^</span> <span class="n">vec2</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">cross</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<span class="n">final</span> <span class="o">=</span> <span class="n">vecBase</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">norm</span><span class="p">)</span><span class="o">.</span><span class="n">scalar_dynamic</span><span class="p">(</span><span class="n">scalV</span><span class="p">))</span>
+<span class="n">final</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">final</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
+
+<span class="n">locBaseL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;loc_base.worldPosition&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">locAL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;locA_tip.worldPosition&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">locBL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;locB_tip.worldPosition&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">scalV</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s">&quot;scalar_loc.ty&quot;</span><span class="p">)</span>
+<span class="n">vecBase</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">Vec</span><span class="p">(</span><span class="n">locBaseL</span><span class="p">)</span>
+<span class="n">vecA</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">Vec</span><span class="p">(</span><span class="n">locAL</span><span class="p">)</span>
+<span class="n">vecB</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">Vec</span><span class="p">(</span><span class="n">locBL</span><span class="p">)</span>
+
+<span class="n">vec1</span> <span class="o">=</span> <span class="n">vecA</span> <span class="o">-</span> <span class="n">vecBase</span>
+<span class="n">vec2</span> <span class="o">=</span> <span class="n">vecB</span> <span class="o">-</span> <span class="n">vecBase</span>
+
+<span class="n">cross</span> <span class="o">=</span> <span class="n">vec1</span> <span class="o">^</span> <span class="n">vec2</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">cross</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<span class="n">final</span> <span class="o">=</span> <span class="n">vecBase</span> <span class="o">+</span> <span class="p">(</span><span class="n">scalV</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">norm</span><span class="p">))</span>
+<span class="k">print</span> <span class="n">final</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>if we run this code we will get this output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="o">-</span><span class="mf">9.92186164855957</span><span class="p">,</span> <span class="mf">3.0812413692474365</span><span class="p">,</span> <span class="mf">7.610930442810059</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-</span><span class="mf">9.921861257927038</span><span class="p">,</span> <span class="mf">3.081241399214411</span><span class="p">,</span> <span class="mf">7.610930208516201</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>As you can see the results are the same (just some rounding differences)</p>
+<p>Here if you like it better a step by step video:</p>
+<iframe src="https://player.vimeo.com/video/121407853" width="500" height="280" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/121407853">mMath Lib: Demo1 - Perpendicular vector</a> from <a href="https://vimeo.com/marcogiordano91">Marco Giordano</a> on <a href="https://vimeo.com">Vimeo</a>.</p></div>
+<div class="section" id="demo-2-stretchy-ik">
+<h2>DEMO 2: Stretchy IK<a class="headerlink" href="#demo-2-stretchy-ik" title="Permalink to this headline">¶</a></h2>
+<p>In this second demo we are going to takle a more rigging related task, a stretchy IK.
+This demo will allow us to show better the use of vectors and scalars working toghether.</p>
+<p>Here is the snippet of code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#declaring the chain array</span>
+<span class="n">chain</span> <span class="o">=</span><span class="p">[</span><span class="s">&quot;joint1&quot;</span><span class="p">,</span><span class="s">&quot;joint2&quot;</span><span class="p">,</span><span class="s">&quot;joint3&quot;</span><span class="p">]</span>
+<span class="c">#declaring initial vectors</span>
+<span class="n">startV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;start_drv.worldPosition&quot;</span><span class="p">,</span> <span class="s">&quot;sStretch&quot;</span><span class="p">)</span>
+<span class="n">endV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;end_drv.worldPosition&quot;</span><span class="p">,</span> <span class="s">&quot;eStretch&quot;</span><span class="p">)</span>
+<span class="n">poleV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;poleVec_drv.worldPosition&quot;</span><span class="p">,</span> <span class="s">&quot;pStretch&quot;</span><span class="p">)</span>
+
+<span class="c">#declaring needed stretch scalar for the setup</span>
+<span class="n">stretchV</span><span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;end_drv.stretch&quot;</span><span class="p">,</span><span class="s">&quot;stretch&quot;</span><span class="p">)</span>
+
+<span class="c">#computing the length between the end and the start of the chain</span>
+<span class="n">distV</span> <span class="o">=</span> <span class="n">endV</span> <span class="o">-</span> <span class="n">startV</span>
+<span class="n">length</span> <span class="o">=</span> <span class="n">distV</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+<span class="c">#getting initial chain length and converting into vectors</span>
+<span class="n">upLen</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+<span class="n">lowLen</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+
+<span class="c">#here we create two working vector from static values</span>
+<span class="c">#the static value will be hardcoded in a transfomr channel</span>
+<span class="c">#and a NScalar instance will be returned</span>
+<span class="n">upLenV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="o">.</span><span class="n">from_value</span><span class="p">(</span><span class="n">upLen</span><span class="p">,</span> <span class="s">&quot;upLen&quot;</span><span class="p">)</span>
+<span class="n">lowLenV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="o">.</span><span class="n">from_value</span><span class="p">(</span><span class="n">lowLen</span><span class="p">,</span> <span class="s">&quot;lowLen&quot;</span><span class="p">)</span>
+
+<span class="c">#getting total length chain (this can be easily multiplied by the global scale)</span>
+<span class="n">initLen</span> <span class="o">=</span> <span class="n">upLenV</span><span class="o">+</span><span class="n">lowLenV</span>
+
+<span class="c">#finding theratio</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span><span class="n">initLen</span>
+
+<span class="c">#calculating scaled length</span>
+<span class="n">scaledUp</span> <span class="o">=</span> <span class="n">upLenV</span> <span class="o">*</span> <span class="n">ratio</span>
+<span class="n">scaledlow</span> <span class="o">=</span> <span class="n">lowLenV</span> <span class="o">*</span> <span class="n">ratio</span>
+
+<span class="c">#computing final blended stretch</span>
+<span class="n">finalScaledUp</span> <span class="o">=</span> <span class="n">upLenV</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">scaledUp</span><span class="p">,</span> <span class="n">stretchV</span><span class="p">)</span>
+<span class="n">finalScaledLow</span> <span class="o">=</span> <span class="n">lowLenV</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">scaledlow</span><span class="p">,</span><span class="n">stretchV</span><span class="p">)</span>
+
+<span class="c">#condition node (old school)</span>
+<span class="n">cnd</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s">&quot;condition&quot;</span><span class="p">)</span>
+<span class="n">ratio</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.firstTerm&#39;</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.secondTerm&#39;</span> <span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.operation&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c">#connecting our final calculaded stretch node to the cnd colors</span>
+<span class="n">finalScaledUp</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfTrueR&#39;</span><span class="p">)</span>
+<span class="n">upLenV</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfFalseR&#39;</span><span class="p">)</span>
+<span class="n">finalScaledLow</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfTrueG&#39;</span><span class="p">)</span>
+<span class="n">lowLenV</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfFalseG&#39;</span><span class="p">)</span>
+
+<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.outColorR&#39;</span><span class="p">,</span> <span class="n">chain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.outColorG&#39;</span><span class="p">,</span> <span class="n">chain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see with really few lines of code we created a fully functioning
+stretchy IK setup.</p>
+<p>This is the result in the node editor</p>
+<img alt="../_images/demo2.png" src="../_images/demo2.png" />
+<p>Here a step by step video showing the process:</p>
+<iframe src="https://player.vimeo.com/video/121556271" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/121556271">Desktop 03.07.2015 - 18.55.48.04</a> from <a href="https://vimeo.com/marcogiordano91">Marco Giordano</a> on <a href="https://vimeo.com">Vimeo</a>.</p></div>
+<div class="section" id="demo-3-lock-stretchy-ik">
+<h2>DEMO 3: Lock-Stretchy IK<a class="headerlink" href="#demo-3-lock-stretchy-ik" title="Permalink to this headline">¶</a></h2>
+<p>In this demo we are going to expand on the previous code and add a lock to elbow
+feature to our stretchy IK.
+In the code I will put toghether both old and new code, so you can see how it ties
+up one to the other.</p>
+<p>Here the code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#OLD CODE</span>
+<span class="c">#declaring the chain array</span>
+<span class="n">chain</span> <span class="o">=</span><span class="p">[</span><span class="s">&quot;joint1&quot;</span><span class="p">,</span><span class="s">&quot;joint2&quot;</span><span class="p">,</span><span class="s">&quot;joint3&quot;</span><span class="p">]</span>
+<span class="c">#declaring initial vectors</span>
+<span class="n">startV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;start_drv.worldPosition&quot;</span><span class="p">,</span> <span class="s">&quot;sStretch&quot;</span><span class="p">)</span>
+<span class="n">endV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;end_drv.worldPosition&quot;</span><span class="p">,</span> <span class="s">&quot;eStretch&quot;</span><span class="p">)</span>
+<span class="n">poleV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NVec</span><span class="p">(</span><span class="s">&quot;poleVec_drv.worldPosition&quot;</span><span class="p">,</span> <span class="s">&quot;pStretch&quot;</span><span class="p">)</span>
+<span class="n">stretchV</span><span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;end_drv.stretch&quot;</span><span class="p">,</span><span class="s">&quot;stretch&quot;</span><span class="p">)</span>
+<span class="n">lockV</span><span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="s">&quot;end_drv.lock&quot;</span><span class="p">,</span><span class="s">&quot;lock&quot;</span><span class="p">)</span>
+
+<span class="c">#computing the length between the end and the start of the chain</span>
+<span class="n">distV</span> <span class="o">=</span> <span class="n">endV</span> <span class="o">-</span> <span class="n">startV</span>
+<span class="n">length</span> <span class="o">=</span> <span class="n">distV</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+<span class="c">#getting initial chain length and converting into vectors</span>
+<span class="n">upLen</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+<span class="n">lowLen</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+
+<span class="c">#here we create two working vector from static values</span>
+<span class="c">#the static value will be hardcoded in a transfomr channel</span>
+<span class="c">#and a NScalar instance will be returned</span>
+<span class="n">upLenV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="o">.</span><span class="n">from_value</span><span class="p">(</span><span class="n">upLen</span><span class="p">,</span> <span class="s">&quot;upLen&quot;</span><span class="p">)</span>
+<span class="n">lowLenV</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="o">.</span><span class="n">from_value</span><span class="p">(</span><span class="n">lowLen</span><span class="p">,</span> <span class="s">&quot;lowLen&quot;</span><span class="p">)</span>
+
+<span class="c">#getting total length chain (this can be easily multiplied by the global scale)</span>
+<span class="n">initLen</span> <span class="o">=</span> <span class="n">upLenV</span><span class="o">+</span><span class="n">lowLenV</span>
+
+<span class="c">#finding theratio</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span><span class="n">initLen</span>
+
+<span class="c">#calculating scaled length</span>
+<span class="n">scaledUp</span> <span class="o">=</span> <span class="n">upLenV</span> <span class="o">*</span> <span class="n">ratio</span>
+<span class="n">scaledlow</span> <span class="o">=</span> <span class="n">lowLenV</span> <span class="o">*</span> <span class="n">ratio</span>
+
+<span class="c">#computing final blended stretch</span>
+<span class="n">finalScaledUp</span> <span class="o">=</span> <span class="n">upLenV</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">scaledUp</span><span class="p">,</span> <span class="n">stretchV</span><span class="p">)</span>
+<span class="n">finalScaledLow</span> <span class="o">=</span> <span class="n">lowLenV</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">scaledlow</span><span class="p">,</span><span class="n">stretchV</span><span class="p">)</span>
+
+<span class="c">#condition node (old school)</span>
+<span class="n">cnd</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s">&quot;condition&quot;</span><span class="p">)</span>
+<span class="n">ratio</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.firstTerm&#39;</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.secondTerm&#39;</span> <span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.operation&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c">#connecting our final calculaded stretch node to the cnd colors</span>
+<span class="n">finalScaledUp</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfTrueR&#39;</span><span class="p">)</span>
+<span class="n">upLenV</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfFalseR&#39;</span><span class="p">)</span>
+<span class="n">finalScaledLow</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfTrueG&#39;</span><span class="p">)</span>
+<span class="n">lowLenV</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.colorIfFalseG&#39;</span><span class="p">)</span>
+
+<span class="c">#FROM HERE THE NEW STUFF</span>
+
+<span class="c">#now compute the pole vector lock</span>
+<span class="c">#get polevec vectors</span>
+<span class="n">upPoleVec</span> <span class="o">=</span> <span class="n">poleV</span> <span class="o">-</span> <span class="n">startV</span>
+<span class="n">lowPoleVec</span> <span class="o">=</span> <span class="n">poleV</span> <span class="o">-</span> <span class="n">endV</span>
+
+<span class="c">#computing the length</span>
+<span class="n">upPoleLen</span> <span class="o">=</span> <span class="n">upPoleVec</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+<span class="n">lowPoleLen</span><span class="o">=</span> <span class="n">lowPoleVec</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+<span class="c">#blending default length with poleVec vectors</span>
+<span class="n">upPoleBlen</span> <span class="o">=</span> <span class="n">upLenV</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">upPoleLen</span><span class="p">,</span> <span class="n">lockV</span><span class="p">)</span>
+<span class="n">lowPoleBlen</span> <span class="o">=</span> <span class="n">lowLenV</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">lowPoleLen</span><span class="p">,</span> <span class="n">lockV</span><span class="p">)</span>
+
+<span class="c">#connecting a NScalar to the output of the node</span>
+<span class="n">finalStrUp</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.outColorR&#39;</span><span class="p">)</span>
+<span class="n">finalStrLow</span> <span class="o">=</span> <span class="n">nVec</span><span class="o">.</span><span class="n">NScalar</span><span class="p">(</span><span class="n">cnd</span> <span class="o">+</span> <span class="s">&#39;.outColorG&#39;</span><span class="p">)</span>
+
+<span class="c">#blending the stretch and lock lengths</span>
+<span class="n">resUp</span> <span class="o">=</span> <span class="n">finalStrUp</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">upPoleBlen</span><span class="p">,</span><span class="n">lockV</span><span class="p">)</span>
+<span class="n">resLow</span> <span class="o">=</span><span class="n">finalStrLow</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">lowPoleBlen</span><span class="p">,</span><span class="n">lockV</span><span class="p">)</span>
+
+<span class="c">#connect final result</span>
+<span class="n">resUp</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+<span class="n">resLow</span><span class="o">.</span><span class="n">connect_to</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.tx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we see how with few lines we could add extra features to the previous setup,
+also we could see that we can easly hook up NScalars to existing attribute that
+are not direcly supported by the library (like condition nodes), and merge them
+into the existing flow</p>
+<p>As usual here a step by step video:</p>
+<iframe src="https://player.vimeo.com/video/121556792" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/121556792">mMath Lib: Demo3 - Lock-Stretchy IK</a> from <a href="https://vimeo.com/marcogiordano91">Marco Giordano</a> on <a href="https://vimeo.com">Vimeo</a>.</p></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#demo-1-perpendicular-vector">DEMO 1: Perpendicular vector</a></li>
+<li><a class="reference internal" href="#demo-2-stretchy-ik">DEMO 2: Stretchy IK</a></li>
+<li><a class="reference internal" href="#demo-3-lock-stretchy-ik">DEMO 3: Lock-Stretchy IK</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Welcome to mMath&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="staticdynamic.html"
+                        title="next chapter">Static VS Dynamic opeation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_static/getting_started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="staticdynamic.html" title="Static VS Dynamic opeation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to mMath’s documentation!"
+             >previous</a> |</li>
+        <li><a href="../index.html">mMath 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Marco Giordano.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
