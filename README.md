@@ -8,7 +8,7 @@ Currently only basic vector operation are supported, feel free to let me know wh
 Please feel free to give feedbacks so that the project can grow.
 
 Here you can find the full documentation of the library with tutorials
-on how to get started on using it
+on how to get started on using it:
 
 
-<a href=http://giordi91.github.io/mMath/index.html target="_blank" ></a>
+<a href=http://giordi91.github.io/mMath/index.html target="_blank" >"DOCUMENTATION</a>
